@@ -5,13 +5,6 @@ namespace BeFaster.App.Solutions.CHK
 {
     public class CheckoutSolution
     {
-        
-        private static readonly Dictionary<char, Offer> ProductOffers = new()
-        {
-            {'A', new Offer(3, 130)},
-            {'B', new Offer(2, 45)}
-        };
-            
         public static int Checkout(string? stockKeepingUnits)
         {
             if (!IsValid(stockKeepingUnits))
@@ -39,7 +32,7 @@ namespace BeFaster.App.Solutions.CHK
                     totalPrice += price * quantity;
                 }
 
-                if (ProductOffers.TryGetValue(product, out var offer))
+                if (ProductOffers.Values.TryGetValue(product, out var offer))
                 {
                     var offerQuantity = offer.Quantity;
                     var offerPrice = offer.Price;
@@ -64,3 +57,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+

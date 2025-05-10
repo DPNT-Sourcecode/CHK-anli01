@@ -49,7 +49,7 @@ namespace BeFaster.App
             fizzBuzzSolution.FizzBuzz(p[0].GetAsInteger());
 
         public object Checkout(List<ParamAccessor> p) =>
-            checkoutSolution.Checkout(p[0].GetAsString());
+            CheckoutSolution.Checkout(p[0].GetAsString());
 
         public object RabbitHole(List<ParamAccessor> p) =>
             rabbitHoleSolution.RabbitHole(
@@ -102,3 +102,4 @@ namespace BeFaster.App
             demoRound4n5Solution.Waves(p[0].GetAsInteger());
     }
 }
+
