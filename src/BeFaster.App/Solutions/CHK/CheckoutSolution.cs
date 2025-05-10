@@ -5,13 +5,26 @@ namespace BeFaster.App.Solutions.CHK
 {
     public class CheckoutSolution
     {
-        public int Checkout(string? stockKeepingUnits)
+        
+        private Dictionary<char, int> productPrices = new()
+        {
+            {'A', 50},
+            {'B', 30},
+            {'C', 20},
+            {'D', 15}
+        };
+        
+        private Dictionary<char, >
+            
+        public static int Checkout(string? stockKeepingUnits)
         {
             if (!IsValid(stockKeepingUnits))
             {
                 return -1;
             }
-
+            
+            
+            
             return 0;
         }
 
