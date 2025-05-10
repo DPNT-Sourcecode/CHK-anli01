@@ -74,7 +74,7 @@ public class CheckoutSolutionTests
     {
         // Arrange
         var stockKeepingUnits = "BBEE";
-        var expectedResult = _productDiscountOffers['B'].First().Price + _productPrices['E'] * 2 - _productPrices['B'];
+        var expectedResult = 110;
         
         // Act
         var result = CheckoutSolution.Checkout(stockKeepingUnits);
@@ -93,3 +93,4 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
 }
+
