@@ -35,6 +35,7 @@ public class CheckoutSolutionTests
             ( "C", _productPrices['C'] ),
             ( "D", _productPrices['D'] ),
             ( "E", _productPrices['E'] ),
+            ( "F", _productPrices['F'] ),
             ( "ABCD", _productPrices['A']+_productPrices['B']+_productPrices['C']+_productPrices['D'] ),
             ( "AA", _productPrices['A']*2 ),
             ( "BB", _productDiscountOffers['B'].First().Price ),
@@ -84,6 +85,8 @@ public class CheckoutSolutionTests
     }
     
     [TestCase("EEEEBB", 160)]
+    [TestCase("FFF", 20)]
+    [TestCase("FFFEEEEBB", 180)]
     public void Checkout_WhenMultipleFreeOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
     {
         // Act
