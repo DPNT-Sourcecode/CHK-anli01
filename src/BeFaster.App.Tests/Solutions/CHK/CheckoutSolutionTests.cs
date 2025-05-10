@@ -7,7 +7,7 @@ namespace BeFaster.App.Tests.Solutions.CHK;
 public class CheckoutSolutionTests
 {
     private static readonly Dictionary<char, int> _productPrices = ProductPrices.Values;
-    private static readonly Dictionary<char, Offer> _productOffers = ProductOffers.Values;
+    private static readonly Dictionary<char, IEnumerable<Offer>> _productOffers = ProductOffers.Values;
 
     [TestCase(null)]
     [TestCase(" ")]
@@ -36,10 +36,10 @@ public class CheckoutSolutionTests
             ( "D", _productPrices['D'] ),
             ( "ABCD", _productPrices['A']+_productPrices['B']+_productPrices['C']+_productPrices['D'] ),
             ( "AA", _productPrices['A']*2 ),
-            ( "BB", _productOffers['B'].Price ),
+            ( "BB", _productOffers['B'].First().Price ),
             ( "CC", _productPrices['C']*2 ),
             ( "DD", _productPrices['D']*2 ),
-            ( "AAA", _productOffers['A'].Price )
+            ( "AAA", _productOffers['A'].First().Price )
         };
 
     [TestCaseSource(nameof(_checkoutTestCases))]
@@ -55,5 +55,6 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
 }
+
 
 

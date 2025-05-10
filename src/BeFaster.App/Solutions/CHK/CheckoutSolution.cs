@@ -25,27 +25,34 @@ namespace BeFaster.App.Solutions.CHK
             foreach (var item in checkoutItems)
             {
                 var product = item.Key;
-                var quantity = item.Value;
+                var quantityPurchased = item.Value;
 
                 if (ProductPrices.Values.TryGetValue(product, out var price))
                 {
-                    totalPrice += price * quantity;
+                    totalPrice += price * quantityPurchased;
                 }
 
-                if (ProductOffers.Values.TryGetValue(product, out var offer))
+                if (ProductOffers.Values.TryGetValue(product, out var offers))
                 {
-                    var offerQuantity = offer.Quantity;
-                    var offerPrice = offer.Price;
-
-                    if (quantity >= offerQuantity)
-                    {
-                        var numberOfOffers = quantity / offerQuantity;
-                        totalPrice -= (ProductPrices.Values[product] * offerQuantity - offerPrice) * numberOfOffers;
-                    }
+                    var bestOfferPrice = offers.ToList().Max(x => GetOfferPrice(product, quantityPurchased, x));
+                    totalPrice -= bestOfferPrice;
                 }
             }
 
             return totalPrice;
+        }
+
+        private static int GetOfferPrice(char product, int quantityPurchased, Offer offer)
+        {
+            var offerQuantity = offer.Quantity;
+            var offerPrice = offer.Price;
+
+            if (quantityPurchased < offerQuantity)
+                return 0;
+            
+            var numberOfOffers = quantityPurchased / offerQuantity;
+            return (ProductPrices.Values[product] * offerQuantity - offerPrice) * numberOfOffers;
+
         }
 
         private static bool IsValid(string? stockKeepingUnits)
@@ -57,4 +64,5 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
