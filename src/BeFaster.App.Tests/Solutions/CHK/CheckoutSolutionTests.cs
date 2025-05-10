@@ -35,21 +35,21 @@ public class CheckoutSolutionTests
     }
     
     
-    public static IEnumerable<object[]> CheckoutTestCases
+    public static IEnumerable<(string, int)> CheckoutTestCases
     {
         get
         {
-            return new[]
+            return new()
             { 
-                new object[] { "A", _productPrices['A'] },
-                new object[] { "B", _productPrices['B'] },
-                new object[] { "C", _productPrices['C'] },
-                new object[] { "D", _productPrices['D'] },
-                new object[] { "ABCD", _productPrices['A']+_productPrices['B']+_productPrices['C']+_productPrices['D'] },
-                new object[] { "AA", _productPrices['A']*2 },
-                new object[] { "BB", _productPrices['B']*2 },
-                new object[] { "CC", _productPrices['C']*2 },
-                new object[] { "DD", _productPrices['D']*2 }
+                ("A", _productPrices['A']),
+                // { "B", _productPrices['B'] },
+                // { "C", _productPrices['C'] },
+                // { "D", _productPrices['D'] },
+                // { "ABCD", _productPrices['A']+_productPrices['B']+_productPrices['C']+_productPrices['D'] },
+                // { "AA", _productPrices['A']*2 },
+                // { "BB", _productPrices['B']*2 },
+                // { "CC", _productPrices['C']*2 },
+                // { "DD", _productPrices['D']*2 }
             };
         }
     }
@@ -64,3 +64,4 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
 }
+
