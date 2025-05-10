@@ -6,7 +6,8 @@ namespace BeFaster.App.Solutions.CHK
     {
         public int Checkout(string? skus)
         {
-            throw new SolutionNotImplementedException();
+            
         }
     }
 }
+
