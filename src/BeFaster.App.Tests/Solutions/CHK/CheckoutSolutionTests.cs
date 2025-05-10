@@ -57,13 +57,10 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
     
-    [Test]
-    public void Checkout_WhenMultipleDiscountOffers_ReturnsExpected()
+    [TestCase("AAAAAAAAAAAAAAA", 600)]
+    [TestCase("AAAAAAAA", 330)]
+    public void Checkout_WhenMultipleDiscountOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
     {
-        // Arrange
-        var stockKeepingUnits = "AAAAAAAAAAAAAAA";
-        var expectedResult = 600;
-        
         // Act
         var result = CheckoutSolution.Checkout(stockKeepingUnits);
 
@@ -85,3 +82,4 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
 }
+
