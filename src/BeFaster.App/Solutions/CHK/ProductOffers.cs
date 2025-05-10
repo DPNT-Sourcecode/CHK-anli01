@@ -2,9 +2,11 @@
 
 public static class ProductOffers
 {
-    public static readonly Dictionary<char, IEnumerable<Offer>> Values = new()
+    public static readonly Dictionary<char, IEnumerable<DiscountOffer>> DiscountOffers = new()
     {
-        { 'A', new List<Offer> { new(3, 130), new(5, 200) } },
-        { 'B', new List<Offer> { new(2, 45) } }
+        { 'A', new List<DiscountOffer> { new(3, 130), new(5, 200) } },
+        { 'B', new List<DiscountOffer> { new(2, 45) } }
     };
+    
+    
 }

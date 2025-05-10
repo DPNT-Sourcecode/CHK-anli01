@@ -32,7 +32,7 @@ namespace BeFaster.App.Solutions.CHK
                     totalPrice += price * quantityPurchased;
                 }
 
-                if (ProductOffers.Values.TryGetValue(product, out var offers))
+                if (ProductOffers.DiscountOffers.TryGetValue(product, out var offers))
                 {
                     var bestOfferPrice = offers.ToList().Max(x => GetOfferPrice(product, quantityPurchased, x));
                     totalPrice -= bestOfferPrice;
@@ -42,10 +42,10 @@ namespace BeFaster.App.Solutions.CHK
             return totalPrice;
         }
 
-        private static int GetOfferPrice(char product, int quantityPurchased, Offer offer)
+        private static int GetOfferPrice(char product, int quantityPurchased, DiscountOffer discountOffer)
         {
-            var offerQuantity = offer.Quantity;
-            var offerPrice = offer.Price;
+            var offerQuantity = discountOffer.Quantity;
+            var offerPrice = discountOffer.Price;
 
             if (quantityPurchased < offerQuantity)
                 return 0;

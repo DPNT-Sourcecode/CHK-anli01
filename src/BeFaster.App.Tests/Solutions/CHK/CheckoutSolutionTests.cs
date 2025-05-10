@@ -7,7 +7,7 @@ namespace BeFaster.App.Tests.Solutions.CHK;
 public class CheckoutSolutionTests
 {
     private static readonly Dictionary<char, int> _productPrices = ProductPrices.Values;
-    private static readonly Dictionary<char, IEnumerable<Offer>> _productOffers = ProductOffers.Values;
+    private static readonly Dictionary<char, IEnumerable<DiscountOffer>> _productOffers = ProductOffers.DiscountOffers;
 
     [TestCase(null)]
     [TestCase(" ")]
