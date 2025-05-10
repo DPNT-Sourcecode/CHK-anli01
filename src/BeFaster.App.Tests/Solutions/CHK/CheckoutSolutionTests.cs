@@ -26,7 +26,7 @@ public class CheckoutSolutionTests
     }
     
     
-    private static IEnumerable<(string, int)> _checkoutTestCases =
+    private static IEnumerable<(string, int)> _checkoutInputValidTestCases =
         new List<(string, int)>
         { 
             ("", 0),
@@ -44,7 +44,7 @@ public class CheckoutSolutionTests
             ( "AAA", _productDiscountOffers['A'].First().Price )
         };
 
-    [TestCaseSource(nameof(_checkoutTestCases))]
+    [TestCaseSource(nameof(_checkoutInputValidTestCases))]
     public void Checkout_WhenInputValid_ReturnsExpected((string, int) input)
     {
         // Arrange
@@ -69,13 +69,10 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
     
-    [Test]
-    public void Checkout_WhenFreeOffers_ReturnsExpected()
+    [TestCase("BBEE", 110)]
+    [TestCase("EEEEBB", 80)]
+    public void Checkout_WhenFreeOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
     {
-        // Arrange
-        var stockKeepingUnits = "BBEE";
-        var expectedResult = _productDiscountOffers['B'].First().Price + _productPrices['E'] * 2 - _productPrices['B'];
-        
         // Act
         var result = CheckoutSolution.Checkout(stockKeepingUnits);
 
@@ -83,3 +80,4 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
 }
+
