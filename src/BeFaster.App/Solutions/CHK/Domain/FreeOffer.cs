@@ -1,3 +1,3 @@
 ﻿namespace BeFaster.App.Solutions.CHK;
 
-public record FreeOffer()
+public record FreeOffer(int Quantity, char Product);

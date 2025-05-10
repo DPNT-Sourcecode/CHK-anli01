@@ -8,5 +8,9 @@ public static class ProductOffers
         { 'B', new List<DiscountOffer> { new(2, 45) } }
     };
     
+    public static readonly Dictionary<char, FreeOffer> FreeOffers = new()
+    {
+        { 'E', new(2, 'B') }
+    };
     
 }
