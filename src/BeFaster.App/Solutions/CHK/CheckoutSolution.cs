@@ -45,18 +45,15 @@ namespace BeFaster.App.Solutions.CHK
         {
             
             var totalDiscountPrice = 0;
-            var freeOffers = GetFreeOffersForProduct(product);
-            foreach (var freeOffer in freeOffers!)
-            {
-                var offerQuantity = freeOffer.Quantity;
-                var offerProduct = freeOffer.Product;
-                    
-                var numberOfFreeOffers = checkoutItems[product] / offerQuantity;
-                var offersToApply = Math.Min(checkoutItems[product], numberOfFreeOffers);
-                totalDiscountPrice += ProductPrices.Values[product] * offersToApply;
-                quantityToApplyDiscountOffers[offerProduct] -= offersToApply;
-            }
+            totalDiscountPrice += GetFreeOfferAmount(product, quantityToApplyDiscountOffers, checkoutItems, totalDiscountPrice);
 
+            totalDiscountPrice = GetDiscountedAmount(product, quantityToApplyDiscountOffers, totalDiscountPrice);
+
+            return totalDiscountPrice;
+        }
+
+        private static int GetDiscountedAmount(char product, Dictionary<char, int> quantityToApplyDiscountOffers, int totalDiscountPrice)
+        {
             if (ProductOffers.DiscountOffers.TryGetValue(product, out var discountOffers))
             {
                 discountOffers = discountOffers.OrderByDescending(x => x.Quantity);
@@ -69,6 +66,24 @@ namespace BeFaster.App.Solutions.CHK
                         quantityToApplyDiscountOffers[product] -= offerApplied * offer.Quantity;
                     }
                 }
+            }
+
+            return totalDiscountPrice;
+        }
+
+        private static int GetFreeOfferAmount(char product, Dictionary<char, int> quantityToApplyDiscountOffers, Dictionary<char, int> checkoutItems,
+            int totalDiscountPrice)
+        {
+            var freeOffers = GetFreeOffersForProduct(product);
+            foreach (var freeOffer in freeOffers!)
+            {
+                var offerQuantity = freeOffer.Quantity;
+                var offerProduct = freeOffer.Product;
+                    
+                var numberOfFreeOffers = checkoutItems[product] / offerQuantity;
+                var offersToApply = Math.Min(checkoutItems[product], numberOfFreeOffers);
+                totalDiscountPrice += ProductPrices.Values[product] * offersToApply;
+                quantityToApplyDiscountOffers[offerProduct] -= offersToApply;
             }
 
             return totalDiscountPrice;
@@ -105,4 +120,5 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
