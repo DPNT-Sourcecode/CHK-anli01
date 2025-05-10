@@ -70,25 +70,13 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
     
-    [Test]
-    public void Checkout_WhenFreeOffers_ReturnsExpected()
-    {
-        // Arrange
-        var stockKeepingUnits = "BBEE";
-        var expectedResult = 110;
-        
-        // Act
-        var result = CheckoutSolution.Checkout(stockKeepingUnits);
-
-        // Assert
-        result.Should().Be(expectedResult);
-    }
-    
     [TestCase("EEEEBB", 160)]
     [TestCase("FFF", 20)]
     [TestCase("FFFFFF", 40)]
     [TestCase("FFFEEEEBB", 180)]
-    public void Checkout_WhenMultipleFreeOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
+    [TestCase("BBEE", 110)]
+    [TestCase("FF", 20)]
+    public void Checkout_WhenFreeOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
     {
         // Act
         var result = CheckoutSolution.Checkout(stockKeepingUnits);
@@ -97,3 +85,4 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
 }
+
