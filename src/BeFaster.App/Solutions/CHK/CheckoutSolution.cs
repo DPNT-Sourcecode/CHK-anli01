@@ -13,6 +13,7 @@ namespace BeFaster.App.Solutions.CHK
             }
             var totalPrice = 0;
             var checkoutItems = new Dictionary<char, int>();
+            var quantityToApplyOffers = new Dictionary<char, int>();
 
             foreach (var product in stockKeepingUnits!)
             {
@@ -20,14 +21,19 @@ namespace BeFaster.App.Solutions.CHK
                 {
                     checkoutItems[product]++;
                 }
+
+                if (!quantityToApplyOffers.TryAdd(product, 1))
+                {
+                    quantityToApplyOffers[product]++;
+                }
+
                 totalPrice += ProductPrices.Values.GetValueOrDefault(product, 0);
             }
-            quantityToApplyOffers = checkoutItems
+            
             foreach (var item in checkoutItems)
             {
                 var product = item.Key;
                 var quantityPurchased = item.Value;
-                var quantityToApplyOffers = quantityPurchased;
                 
                 totalPrice -= GetDiscountPrice(product, quantityToApplyOffers, checkoutItems);
             }
@@ -35,7 +41,7 @@ namespace BeFaster.App.Solutions.CHK
             return totalPrice;
         }
 
-        private static int GetDiscountPrice(char product, int quantityToApplyDiscountOffers, Dictionary<char, int> checkoutItems)
+        private static int GetDiscountPrice(char product, Dictionary<char, int> quantityToApplyDiscountOffers, Dictionary<char, int> checkoutItems)
         {
             
             var totalDiscountPrice = 0;
@@ -48,7 +54,7 @@ namespace BeFaster.App.Solutions.CHK
                 var numberOfFreeOffers = checkoutItems[product] / offerQuantity;
                 var offersToApply = Math.Min(checkoutItems[product], numberOfFreeOffers);
                 totalDiscountPrice += ProductPrices.Values[product] * offersToApply;
-                quantityToApplyDiscountOffers -= offersToApply;
+                quantityToApplyDiscountOffers[offerProduct] -= offersToApply;
             }
 
             if (ProductOffers.DiscountOffers.TryGetValue(product, out var discountOffers))
@@ -56,11 +62,11 @@ namespace BeFaster.App.Solutions.CHK
                 discountOffers = discountOffers.OrderByDescending(x => x.Quantity);
                 foreach (var offer in discountOffers)
                 {
-                    var discountOfferPrice = GetDiscountOfferPrice(product, quantityToApplyDiscountOffers, offer, out var offerApplied);
+                    var discountOfferPrice = GetDiscountOfferPrice(product, quantityToApplyDiscountOffers[product], offer, out var offerApplied);
                     if (discountOfferPrice > 0)
                     {
                         totalDiscountPrice += discountOfferPrice;
-                        quantityToApplyDiscountOffers -= offerApplied * offer.Quantity;
+                        quantityToApplyDiscountOffers[product] -= offerApplied * offer.Quantity;
                     }
                 }
             }
@@ -99,3 +105,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
