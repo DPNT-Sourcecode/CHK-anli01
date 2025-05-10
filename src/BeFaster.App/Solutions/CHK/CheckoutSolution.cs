@@ -43,6 +43,7 @@ namespace BeFaster.App.Solutions.CHK
                         var numberOfFreeOffers = offerQuantityPurchased / offerQuantity;
                         var offersToApply = checkoutItems.ContainsKey(offerProduct) ? Math.Min(numberOfFreeOffers, offerQuantityPurchased) : 0;
                         totalPrice -= ProductPrices.Values[offerProduct] * offersToApply;
+                        quantityToApplyOffers -= offersToApply * offerQuantity;
                     }
                 }
 
@@ -90,6 +91,7 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
 
 
