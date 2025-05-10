@@ -35,31 +35,32 @@ public class CheckoutSolutionTests
     }
     
     
-    public static IEnumerable<object[]> AdditionData
+    public static IEnumerable<object[]> CheckoutTestCases
     {
         get
         {
             return new[]
             { 
-                new object[] { 1, 1, 2 },
-                new object[] { 2, 2, 4 },
-                new object[] { 3, 3, 6 },
-                new object[] { 0, 0, 1 }, // The test run with this row fails
+                new object[] { "A", _productPrices['A'] },
+                new object[] { "B", _productPrices['B'] },
+                new object[] { "C", _productPrices['C'] },
+                new object[] { "D", _productPrices['D'] },
+                new object[] { "ABCD", _productPrices['A']+_productPrices['B']+_productPrices['C']+_productPrices['D'] },
+                new object[] { "AA", _productPrices['A']*2 },
+                new object[] { "BB", _productPrices['B']*2 },
+                new object[] { "CC", _productPrices['C']*2 },
+                new object[] { "DD", _productPrices['D']*2 }
             };
         }
     }
-    
-    [TestCase("A", _productPrices['A'])]
-    public void Checkout_WhenInputValid_ReturnsExpected(string? invalidInput, int expectedResult)
-    {
-        // Arrange
-        var validInput = "ABCD";
-        var expectedPrice = 50 + 30 + 20 + 15;
 
+    [TestCaseSource(nameof(CheckoutTestCases))]
+    public void Checkout_WhenInputValid_ReturnsExpected(string? validInput, int expectedResult)
+    {
         // Act
         var result = CheckoutSolution.Checkout(validInput);
 
         // Assert
-        result.Should().Be(expectedPrice);
+        result.Should().Be(expectedResult);
     }
 }
