@@ -94,5 +94,3 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
 }
-
-

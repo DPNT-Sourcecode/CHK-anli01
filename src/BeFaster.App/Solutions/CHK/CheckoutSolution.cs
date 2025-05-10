@@ -20,6 +20,7 @@ namespace BeFaster.App.Solutions.CHK
                 {
                     checkoutItems[product]++;
                 }
+                totalPrice += ProductPrices.Values.GetValueOrDefault(product, 0);
             }
             
             foreach (var item in checkoutItems)
@@ -27,11 +28,6 @@ namespace BeFaster.App.Solutions.CHK
                 var product = item.Key;
                 var quantityPurchased = item.Value;
                 var quantityToApplyOffers = quantityPurchased;
-
-                if (ProductPrices.Values.TryGetValue(product, out var price))
-                {
-                    totalPrice += price * quantityPurchased;
-                }
                 
                 if(ProductOffers.FreeOffers.TryGetValue(product, out var freeOffer))
                 {
@@ -90,8 +86,3 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
-
-
-
-
-
