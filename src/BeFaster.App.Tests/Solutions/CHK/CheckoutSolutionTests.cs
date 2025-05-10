@@ -6,16 +6,8 @@ namespace BeFaster.App.Tests.Solutions.CHK;
 [TestFixture]
 public class CheckoutSolutionTests
 {
-    private static Dictionary<char, int> _productPrices = null!;
-    private Dictionary<char, Offer> productOffers = null!;
-    
-    [OneTimeSetUp]
-    public void OneTimeSetUp()
-    {
-        _productPrices = ProductPrices.Values;
-        productOffers = ProductOffers.Values;
-    }
-
+    private static readonly Dictionary<char, int> _productPrices = ProductPrices.Values;
+    private static readonly Dictionary<char, Offer> _productOffers = ProductOffers.Values;
 
     [TestCase(null)]
     [TestCase("")]
@@ -44,7 +36,7 @@ public class CheckoutSolutionTests
             ( "D", _productPrices['D'] ),
             ( "ABCD", _productPrices['A']+_productPrices['B']+_productPrices['C']+_productPrices['D'] ),
             ( "AA", _productPrices['A']*2 ),
-            ( "BB", _productPrices['B']*2 ),
+            ( "BB", _productOffers['B'].Price ),
             ( "CC", _productPrices['C']*2 ),
             ( "DD", _productPrices['D']*2 )
         };
