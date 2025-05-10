@@ -59,6 +59,7 @@ public class CheckoutSolutionTests
     
     [TestCase("AAAAAAAAAAAAAAA", 600)]
     [TestCase("AAAAAAAA", 330)]
+    [TestCase("AAAAAAAAA", 380)]
     public void Checkout_WhenMultipleDiscountOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
     {
         // Act

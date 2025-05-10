@@ -55,7 +55,7 @@ namespace BeFaster.App.Solutions.CHK
                         if (discountOfferPrice > 0)
                         {
                             totalPrice -= discountOfferPrice;
-                            quantityToApplyOffers -= offerApplied;
+                            quantityToApplyOffers -= offerApplied * offer.Quantity;
                         }
                     }
                 }
@@ -90,5 +90,6 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
 
