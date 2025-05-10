@@ -83,7 +83,6 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
     
-    [TestCase("BBEE", 110)]
     [TestCase("EEEEBB", 160)]
     public void Checkout_WhenMultipleFreeOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
     {

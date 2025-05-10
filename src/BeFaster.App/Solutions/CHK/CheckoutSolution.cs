@@ -45,7 +45,7 @@ namespace BeFaster.App.Solutions.CHK
         {
             
             var totalDiscountPrice = 0;
-            totalDiscountPrice += GetFreeOfferAmount(product, quantityToApplyDiscountOffers, checkoutItems, totalDiscountPrice);
+            totalDiscountPrice = GetFreeOfferAmount(product, quantityToApplyDiscountOffers, checkoutItems, totalDiscountPrice);
 
             totalDiscountPrice = GetDiscountedAmount(product, quantityToApplyDiscountOffers, totalDiscountPrice);
 
@@ -74,13 +74,12 @@ namespace BeFaster.App.Solutions.CHK
         private static int GetFreeOfferAmount(char product, Dictionary<char, int> quantityToApplyDiscountOffers, Dictionary<char, int> checkoutItems,
             int totalDiscountPrice)
         {
-            var freeOffers = GetFreeOffersForProduct(product);
-            foreach (var freeOffer in freeOffers!)
+            if (ProductOffers.FreeOffers.TryGetValue(product, out var freeOffer))
             {
                 var offerQuantity = freeOffer.Quantity;
                 var offerProduct = freeOffer.Product;
                     
-                var numberOfFreeOffers = checkoutItems[product] / offerQuantity;
+                var numberOfFreeOffers = checkoutItems[offerProduct] / offerQuantity;
                 var offersToApply = Math.Min(checkoutItems[product], numberOfFreeOffers);
                 totalDiscountPrice += ProductPrices.Values[product] * offersToApply;
                 quantityToApplyDiscountOffers[offerProduct] -= offersToApply;
@@ -88,11 +87,7 @@ namespace BeFaster.App.Solutions.CHK
 
             return totalDiscountPrice;
         }
-
-        private static IEnumerable<FreeOffer> GetFreeOffersForProduct(char product)
-        {
-            return ProductOffers.FreeOffers.Values.Where(x => x.Product == product).OrderByDescending(x => x.Quantity);
-        }
+        
 
         private static int GetDiscountOfferPrice(char product, int quantityPurchased, DiscountOffer discountOffer, out int offerApplied)
         {
@@ -120,5 +115,6 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
 
