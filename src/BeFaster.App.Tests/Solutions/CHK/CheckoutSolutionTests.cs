@@ -6,12 +6,15 @@ namespace BeFaster.App.Tests.Solutions.CHK;
 [TestFixture]
 public class CheckoutSolutionTests
 {
-    [Test]
-    public void Checkout_WhenInputInvalid_ReturnsMinusOne()
+    [TestCase(null)]
+    [TestCase("")]
+    [TestCase(" ")]
+    [TestCase("5")]
+    [TestCase("a")]
+    public void Checkout_WhenInputInvalid_ReturnsMinusOne(string? invalidInput)
     {
         // Arrange
         var checkoutSolution = new CheckoutSolution();
-        string? invalidInput = null;
 
         // Act
         var result = checkoutSolution.Checkout(invalidInput);
@@ -20,4 +23,5 @@ public class CheckoutSolutionTests
         result.Should().Be(-1);
     }
 }
+
 

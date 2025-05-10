@@ -1,12 +1,13 @@
-﻿using BeFaster.Runner.Exceptions;
+﻿using System.Text.RegularExpressions;
+using BeFaster.Runner.Exceptions;
 
 namespace BeFaster.App.Solutions.CHK
 {
     public class CheckoutSolution
     {
-        public int Checkout(string? skus)
+        public int Checkout(string? stockKeepingUnits)
         {
-            if (!IsValid(skus))
+            if (!IsValid(stockKeepingUnits))
             {
                 return -1;
             }
@@ -14,14 +15,16 @@ namespace BeFaster.App.Solutions.CHK
             return 0;
         }
 
-        private static bool IsValid(string? skus)
+        private static bool IsValid(string? stockKeepingUnits)
         {
-            if (string.IsNullOrEmpty(skus))
+            var validRegexPattern = @"^[A-Z]+$";
+            Regex r = new Regex(validRegexPattern);
+            if (string.IsNullOrEmpty(stockKeepingUnits) || string.IsNullOrWhiteSpace(stockKeepingUnits))
             {
                 return false;
             }
-
-            foreach (var c in skus)
+            
+            foreach (var c in stockKeepingUnits)
             {
                 if (!char.IsLetter(c))
                 {
@@ -33,5 +36,6 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
 
