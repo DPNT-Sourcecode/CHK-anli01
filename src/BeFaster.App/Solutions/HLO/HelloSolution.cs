@@ -6,8 +6,9 @@ namespace BeFaster.App.Solutions.HLO
     {
         public string Hello(string? friendName)
         {
-            return string.IsNullOrEmpty(friendName) ? "Hello" : $"Hello {friendName}";
+            return "Hello, World";
         }
     }
 }
+
 
