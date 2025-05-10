@@ -18,24 +18,13 @@ namespace BeFaster.App.Solutions.CHK
         private static bool IsValid(string? stockKeepingUnits)
         {
             var validRegexPattern = @"^[A-Z]+$";
-            Regex r = new Regex(validRegexPattern);
-            if (string.IsNullOrEmpty(stockKeepingUnits) || string.IsNullOrWhiteSpace(stockKeepingUnits))
-            {
-                return false;
-            }
-            
-            foreach (var c in stockKeepingUnits)
-            {
-                if (!char.IsLetter(c))
-                {
-                    return false;
-                }
-            }
+            var validRegex = new Regex(validRegexPattern);
 
-            return true;
+            return stockKeepingUnits != null && validRegex.IsMatch(stockKeepingUnits);
         }
     }
 }
+
 
 
 

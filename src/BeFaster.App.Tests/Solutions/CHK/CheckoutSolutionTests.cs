@@ -11,6 +11,9 @@ public class CheckoutSolutionTests
     [TestCase(" ")]
     [TestCase("5")]
     [TestCase("a")]
+    [TestCase("1a")]
+    [TestCase("*")]
+    [TestCase("A_B")]
     public void Checkout_WhenInputInvalid_ReturnsMinusOne(string? invalidInput)
     {
         // Arrange
@@ -23,5 +26,6 @@ public class CheckoutSolutionTests
         result.Should().Be(-1);
     }
 }
+
 
 
