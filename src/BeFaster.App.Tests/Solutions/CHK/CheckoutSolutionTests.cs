@@ -54,7 +54,18 @@ public class CheckoutSolutionTests
         // Assert
         result.Should().Be(expectedResult);
     }
+    
+    [Test]
+    public void Checkout_WhenMultipleOffers_ReturnsExpected()
+    {
+        // Arrange
+        var stockKeepingUnits = "AAAAAAAAAAAAAAA";
+        var expectedResult = 600;
+        
+        // Act
+        var result = CheckoutSolution.Checkout(stockKeepingUnits);
+
+        // Assert
+        result.Should().Be(expectedResult);
+    }
 }
-
-
-
