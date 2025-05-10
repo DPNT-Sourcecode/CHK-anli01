@@ -2,9 +2,9 @@
 
 public static class ProductOffers
 {
-    public static readonly Dictionary<char, Offer> Values = new()
+    public static readonly Dictionary<char, IEnumerable<Offer>> Values = new()
     {
-        {'A', new Offer(3, 130)},
-        {'B', new Offer(2, 45)}
-    };
+        {'A', new List<Offer> {new(3, 130), new Offer(5, 200) }},
+        {'B', new List<Offer> {new(2, 45)},
+    }
 }
