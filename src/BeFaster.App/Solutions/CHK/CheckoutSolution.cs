@@ -6,15 +6,11 @@ namespace BeFaster.App.Solutions.CHK
     public class CheckoutSolution
     {
         
-        private Dictionary<char, int> productPrices = new()
+        private static readonly Dictionary<char, Offer> ProductOffers = new()
         {
-            {'A', 50},
-            {'B', 30},
-            {'C', 20},
-            {'D', 15}
+            {'A', new Offer(3, 130)},
+            {'B', new Offer(2, 45)}
         };
-        
-        private Dictionary<char, >
             
         public static int Checkout(string? stockKeepingUnits)
         {
@@ -22,10 +18,41 @@ namespace BeFaster.App.Solutions.CHK
             {
                 return -1;
             }
+            var totalPrice = 0;
+            var checkoutItems = new Dictionary<char, int>();
+
+            foreach (var product in stockKeepingUnits!)
+            {
+                if (!checkoutItems.TryAdd(product, 1))
+                {
+                    checkoutItems[product]++;
+                }
+            }
             
-            
-            
-            return 0;
+            foreach (var item in checkoutItems)
+            {
+                var product = item.Key;
+                var quantity = item.Value;
+
+                if (ProductPrices.Values.TryGetValue(product, out var price))
+                {
+                    totalPrice += price * quantity;
+                }
+
+                if (ProductOffers.TryGetValue(product, out var offer))
+                {
+                    var offerQuantity = offer.Quantity;
+                    var offerPrice = offer.Price;
+
+                    if (quantity >= offerQuantity)
+                    {
+                        var numberOfOffers = quantity / offerQuantity;
+                        totalPrice -= (ProductPrices.Values[product] * offerQuantity - offerPrice) * numberOfOffers;
+                    }
+                }
+            }
+
+            return totalPrice;
         }
 
         private static bool IsValid(string? stockKeepingUnits)
