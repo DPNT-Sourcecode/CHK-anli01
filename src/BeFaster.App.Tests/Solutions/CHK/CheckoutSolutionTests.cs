@@ -35,33 +35,30 @@ public class CheckoutSolutionTests
     }
     
     
-    public static IEnumerable<(string, int)> CheckoutTestCases
-    {
-        get
-        {
-            return new()
-            { 
-                ("A", _productPrices['A']),
-                // { "B", _productPrices['B'] },
-                // { "C", _productPrices['C'] },
-                // { "D", _productPrices['D'] },
-                // { "ABCD", _productPrices['A']+_productPrices['B']+_productPrices['C']+_productPrices['D'] },
-                // { "AA", _productPrices['A']*2 },
-                // { "BB", _productPrices['B']*2 },
-                // { "CC", _productPrices['C']*2 },
-                // { "DD", _productPrices['D']*2 }
-            };
-        }
-    }
+    private static IEnumerable<(string, int)> _checkoutTestCases =
+        new List<(string, int)>
+        { 
+            ("A", _productPrices['A']),
+            ( "B", _productPrices['B'] ),
+            ( "C", _productPrices['C'] ),
+            ( "D", _productPrices['D'] ),
+            ( "ABCD", _productPrices['A']+_productPrices['B']+_productPrices['C']+_productPrices['D'] ),
+            ( "AA", _productPrices['A']*2 ),
+            ( "BB", _productPrices['B']*2 ),
+            ( "CC", _productPrices['C']*2 ),
+            ( "DD", _productPrices['D']*2 )
+        };
 
-    [TestCaseSource(nameof(CheckoutTestCases))]
-    public void Checkout_WhenInputValid_ReturnsExpected(string? validInput, int expectedResult)
+    [TestCaseSource(nameof(_checkoutTestCases))]
+    public void Checkout_WhenInputValid_ReturnsExpected((string, int) input)
     {
+        // Arrange
+        var (stockKeepingUnits, expectedResult) = input;
+        
         // Act
-        var result = CheckoutSolution.Checkout(validInput);
+        var result = CheckoutSolution.Checkout(stockKeepingUnits);
 
         // Assert
         result.Should().Be(expectedResult);
     }
 }
-

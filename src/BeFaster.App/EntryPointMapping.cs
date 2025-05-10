@@ -102,4 +102,3 @@ namespace BeFaster.App
             demoRound4n5Solution.Waves(p[0].GetAsInteger());
     }
 }
-
