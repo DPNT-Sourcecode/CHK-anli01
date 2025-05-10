@@ -38,7 +38,8 @@ public class CheckoutSolutionTests
             ( "AA", _productPrices['A']*2 ),
             ( "BB", _productOffers['B'].Price ),
             ( "CC", _productPrices['C']*2 ),
-            ( "DD", _productPrices['D']*2 )
+            ( "DD", _productPrices['D']*2 ),
+            ( "AAA", _productOffers['A'].Price )
         };
 
     [TestCaseSource(nameof(_checkoutTestCases))]
@@ -54,3 +55,4 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
 }
+
