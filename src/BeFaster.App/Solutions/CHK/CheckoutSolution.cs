@@ -51,11 +51,11 @@ namespace BeFaster.App.Solutions.CHK
                     discountOffers = discountOffers.OrderByDescending(x => x.Quantity);
                     foreach (var offer in discountOffers)
                     {
-                        var discountOfferPrice = GetDiscountOfferPrice(product, quantityToApplyOffers, offer);
+                        var discountOfferPrice = GetDiscountOfferPrice(product, quantityToApplyOffers, offer, out var offerApplied);
                         if (discountOfferPrice > 0)
                         {
                             totalPrice -= discountOfferPrice;
-                            quantityToApplyOffers -= offer.Quantity;
+                            quantityToApplyOffers -= offerApplied;
                         }
                     }
                 }
@@ -64,15 +64,19 @@ namespace BeFaster.App.Solutions.CHK
             return totalPrice;
         }
 
-        private static int GetDiscountOfferPrice(char product, int quantityPurchased, DiscountOffer discountOffer)
+        private static int GetDiscountOfferPrice(char product, int quantityPurchased, DiscountOffer discountOffer, out int offerApplied)
         {
             var offerQuantity = discountOffer.Quantity;
             var offerPrice = discountOffer.Price;
 
             if (quantityPurchased < offerQuantity)
+            {
+                offerApplied = 0;
                 return 0;
+            }
             
             var numberOfOffers = quantityPurchased / offerQuantity;
+            offerApplied = numberOfOffers;
             return (ProductPrices.Values[product] * offerQuantity - offerPrice) * numberOfOffers;
 
         }
@@ -86,4 +90,5 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
