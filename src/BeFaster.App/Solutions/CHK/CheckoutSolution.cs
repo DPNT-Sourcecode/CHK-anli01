@@ -26,6 +26,7 @@ namespace BeFaster.App.Solutions.CHK
             {
                 var product = item.Key;
                 var quantityPurchased = item.Value;
+                var quantityToApplyOffers = quantityPurchased;
 
                 if (ProductPrices.Values.TryGetValue(product, out var price))
                 {
@@ -47,8 +48,16 @@ namespace BeFaster.App.Solutions.CHK
 
                 if (ProductOffers.DiscountOffers.TryGetValue(product, out var discountOffers))
                 {
-                    var bestOfferPrice = discountOffers.ToList().Max(x => GetDiscountOfferPrice(product, quantityPurchased, x));
-                    totalPrice -= bestOfferPrice;
+                    discountOffers = discountOffers.OrderByDescending(x => x.Quantity);
+                    foreach (var offer in discountOffers)
+                    {
+                        var discountOfferPrice = GetDiscountOfferPrice(product, quantityToApplyOffers, offer);
+                        if (discountOfferPrice > 0)
+                        {
+                            totalPrice -= discountOfferPrice;
+                            quantityToApplyOffers -= offer.Quantity;
+                        }
+                    }
                 }
             }
 
@@ -77,3 +86,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
