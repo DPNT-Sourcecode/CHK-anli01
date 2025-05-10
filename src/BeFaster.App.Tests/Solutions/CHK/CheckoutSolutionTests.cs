@@ -10,7 +10,6 @@ public class CheckoutSolutionTests
     private static readonly Dictionary<char, Offer> _productOffers = ProductOffers.Values;
 
     [TestCase(null)]
-    [TestCase("")]
     [TestCase(" ")]
     [TestCase("5")]
     [TestCase("a")]
@@ -30,6 +29,7 @@ public class CheckoutSolutionTests
     private static IEnumerable<(string, int)> _checkoutTestCases =
         new List<(string, int)>
         { 
+            ("", 0),
             ("A", _productPrices['A']),
             ( "B", _productPrices['B'] ),
             ( "C", _productPrices['C'] ),
@@ -55,4 +55,5 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
 }
+
 

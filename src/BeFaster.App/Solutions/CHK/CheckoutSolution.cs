@@ -50,10 +50,11 @@ namespace BeFaster.App.Solutions.CHK
 
         private static bool IsValid(string? stockKeepingUnits)
         {
-            var validRegexPattern = @"^[A-Z]+$";
+            var validRegexPattern = @"^[A-Z]*$";
             var validRegex = new Regex(validRegexPattern);
 
             return stockKeepingUnits != null && validRegex.IsMatch(stockKeepingUnits);
         }
     }
 }
+
