@@ -6,7 +6,8 @@ namespace BeFaster.App.Solutions.HLO
     {
         public string Hello(string? friendName)
         {
-            throw new SolutionNotImplementedException();
+            return string.IsNullOrEmpty(friendName) ? "Hello" : $"Hello {friendName}";
         }
     }
 }
+
