@@ -34,11 +34,13 @@ public class CheckoutSolutionTests
             ( "B", _productPrices['B'] ),
             ( "C", _productPrices['C'] ),
             ( "D", _productPrices['D'] ),
+            ( "E", _productPrices['E'] ),
             ( "ABCD", _productPrices['A']+_productPrices['B']+_productPrices['C']+_productPrices['D'] ),
             ( "AA", _productPrices['A']*2 ),
             ( "BB", _productDiscountOffers['B'].First().Price ),
             ( "CC", _productPrices['C']*2 ),
             ( "DD", _productPrices['D']*2 ),
+            ( "EE", _productPrices['E']*2 ),
             ( "AAA", _productDiscountOffers['A'].First().Price )
         };
 
