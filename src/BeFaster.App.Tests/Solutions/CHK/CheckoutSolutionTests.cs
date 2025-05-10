@@ -86,6 +86,7 @@ public class CheckoutSolutionTests
     
     [TestCase("EEEEBB", 160)]
     [TestCase("FFF", 20)]
+    [TestCase("FFFFFF", 40)]
     [TestCase("FFFEEEEBB", 180)]
     public void Checkout_WhenMultipleFreeOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
     {

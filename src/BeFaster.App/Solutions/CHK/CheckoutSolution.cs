@@ -86,7 +86,7 @@ namespace BeFaster.App.Solutions.CHK
                 {
                     quantityToApplyDiscountOffers[offerProduct] -= offersToApply * offerQuantity;
                 }
-                if (quantityToApplyDiscountOffers.ContainsKey(product))
+                if (offerProduct != product && quantityToApplyDiscountOffers.ContainsKey(product))
                 {
                     quantityToApplyDiscountOffers[product] -= offersToApply;
                 }
@@ -122,3 +122,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
