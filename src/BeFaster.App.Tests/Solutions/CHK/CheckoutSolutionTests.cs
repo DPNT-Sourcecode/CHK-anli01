@@ -26,6 +26,3 @@ public class CheckoutSolutionTests
         result.Should().Be(-1);
     }
 }
-
-
-
