@@ -7,7 +7,7 @@ namespace BeFaster.App.Tests.Solutions.CHK;
 public class CheckoutSolutionTests
 {
     private static readonly Dictionary<char, int> _productPrices = ProductPrices.Values;
-    private static readonly Dictionary<char, IEnumerable<DiscountOffer>> _productOffers = ProductOffers.DiscountOffers;
+    private static readonly Dictionary<char, IEnumerable<DiscountOffer>> _productDiscountOffers = ProductOffers.DiscountOffers;
 
     [TestCase(null)]
     [TestCase(" ")]
@@ -36,10 +36,10 @@ public class CheckoutSolutionTests
             ( "D", _productPrices['D'] ),
             ( "ABCD", _productPrices['A']+_productPrices['B']+_productPrices['C']+_productPrices['D'] ),
             ( "AA", _productPrices['A']*2 ),
-            ( "BB", _productOffers['B'].First().Price ),
+            ( "BB", _productDiscountOffers['B'].First().Price ),
             ( "CC", _productPrices['C']*2 ),
             ( "DD", _productPrices['D']*2 ),
-            ( "AAA", _productOffers['A'].First().Price )
+            ( "AAA", _productDiscountOffers['A'].First().Price )
         };
 
     [TestCaseSource(nameof(_checkoutTestCases))]
@@ -56,11 +56,25 @@ public class CheckoutSolutionTests
     }
     
     [Test]
-    public void Checkout_WhenMultipleOffers_ReturnsExpected()
+    public void Checkout_WhenMultipleDiscountOffers_ReturnsExpected()
     {
         // Arrange
         var stockKeepingUnits = "AAAAAAAAAAAAAAA";
         var expectedResult = 600;
+        
+        // Act
+        var result = CheckoutSolution.Checkout(stockKeepingUnits);
+
+        // Assert
+        result.Should().Be(expectedResult);
+    }
+    
+    [Test]
+    public void Checkout_WhenFreeOffers_ReturnsExpected()
+    {
+        // Arrange
+        var stockKeepingUnits = "BBEE";
+        var expectedResult = _productDiscountOffers['B'].First().Price + _productPrices['E'] * 2 - _productPrices['B'];
         
         // Act
         var result = CheckoutSolution.Checkout(stockKeepingUnits);

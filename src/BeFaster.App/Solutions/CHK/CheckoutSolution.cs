@@ -31,10 +31,22 @@ namespace BeFaster.App.Solutions.CHK
                 {
                     totalPrice += price * quantityPurchased;
                 }
-
-                if (ProductOffers.DiscountOffers.TryGetValue(product, out var offers))
+                
+                if(ProductOffers.FreeOffers.TryGetValue(product, out var freeOffer))
                 {
-                    var bestOfferPrice = offers.ToList().Max(x => GetDiscountOfferPrice(product, quantityPurchased, x));
+                    var offerQuantity = freeOffer.Quantity;
+                    var offerProduct = freeOffer.Product;
+                    
+                    if (checkoutItems.TryGetValue(product, out var offerQuantityPurchased))
+                    {
+                        var numberOfFreeOffers = offerQuantityPurchased / offerQuantity;
+                        totalPrice -= ProductPrices.Values[offerProduct] * numberOfFreeOffers;
+                    }
+                }
+
+                if (ProductOffers.DiscountOffers.TryGetValue(product, out var discountOffers))
+                {
+                    var bestOfferPrice = discountOffers.ToList().Max(x => GetDiscountOfferPrice(product, quantityPurchased, x));
                     totalPrice -= bestOfferPrice;
                 }
             }
