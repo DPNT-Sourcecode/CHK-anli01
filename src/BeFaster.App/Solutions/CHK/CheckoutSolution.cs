@@ -79,13 +79,12 @@ namespace BeFaster.App.Solutions.CHK
                 var offerQuantity = freeOffer.Quantity;
                 var offerProduct = freeOffer.Product;
 
-                while (quantityToApplyDiscountOffers[offerProduct] >= offerQuantity)
+                while (quantityToApplyDiscountOffers.ContainsKey(offerProduct) && quantityToApplyDiscountOffers[offerProduct] >= offerQuantity)
                 {
                     totalDiscountPrice += ProductPrices.Values[product];
-                    if (quantityToApplyDiscountOffers.ContainsKey(offerProduct))
-                    {
-                        quantityToApplyDiscountOffers[offerProduct] -= offerQuantity;
-                    }
+                    
+                    quantityToApplyDiscountOffers[offerProduct] -= offerQuantity;
+                    
                     if (quantityToApplyDiscountOffers.ContainsKey(product))
                     {
                         quantityToApplyDiscountOffers[product] -= 1;
@@ -123,6 +122,7 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
 
 
