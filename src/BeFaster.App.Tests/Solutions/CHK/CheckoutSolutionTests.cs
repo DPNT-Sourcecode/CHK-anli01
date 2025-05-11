@@ -26,7 +26,7 @@ public class CheckoutSolutionTests
     }
     
     
-    private static IEnumerable<(string, int)> _validInputTestCases =
+    private static IEnumerable<(string, int)> _checkoutTestCases =
         new List<(string, int)>
         { 
             ("", 0),
@@ -65,7 +65,7 @@ public class CheckoutSolutionTests
             ( "AAA", _productDiscountOffers['A'].First().Price )
         };
 
-    [TestCaseSource(nameof(_validInputTestCases))]
+    [TestCaseSource(nameof(_checkoutTestCases))]
     public void Checkout_WhenInputValid_ReturnsExpected((string, int) input)
     {
         // Arrange
@@ -77,27 +77,15 @@ public class CheckoutSolutionTests
         // Assert
         result.Should().Be(expectedResult);
     }
-
-    private static IEnumerable<(string, int)> _multiDiscountTestCases = new List<(string, int)>
+    
+    [TestCase("AAAAAAAAAAAAAAA", 600)]
+    [TestCase("AAAAAAAA", 330)]
+    [TestCase("AAAAAAAAA", 380)]
+    [TestCase("HHHHHHHHH", 85)]
+    [TestCase("VVVVV", 220)]
+    [TestCase("VVVVVVV", 310)]
+    public void Checkout_WhenMultipleDiscountOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
     {
-        ("AAAAAAAAAAAAAAA", _productPrices['A'] * 15 - _productDiscountOffers['A'].First(x => x.Quantity == 5).Price),
-        ("AAAAAAAA",
-            _productPrices['A'] * 8 - _productDiscountOffers['A'].First(x => x.Quantity == 5).Price +
-            _productDiscountOffers['A'].First(x => x.Quantity == 3).Price),
-        ("AAAAAAAAA",
-            _productPrices['A'] * 9 - _productDiscountOffers['A'].First(x => x.Quantity == 5).Price +
-            _productDiscountOffers['A'].First(x => x.Quantity == 3).Price),
-        ("HHHHHHHHH", _productPrices['H'] * 9 - _productDiscountOffers['H'].First(x => x.Quantity == 5).Price),
-        ("VVVVV", _productPrices['V'] * 5 - _productDiscountOffers['V'].First(x => x.Quantity == 3).Price - _productDiscountOffers['V'].First(x => x.Quantity == 2).Price),
-        ("VVVVVVV", _productPrices['V'] * 7 - _productDiscountOffers['V'].First(x => x.Quantity == 3).Price - _productDiscountOffers['V'].First(x => x.Quantity == 3).Price),
-    };
-        
-    [TestCaseSource(nameof(_multiDiscountTestCases))]
-    public void Checkout_WhenMultipleDiscountOffers_ReturnsExpected((string, int) input)
-    {
-        // Arrange
-        var (stockKeepingUnits, expectedResult) = input;
-        
         // Act
         var result = CheckoutSolution.Checkout(stockKeepingUnits);
 
@@ -140,4 +128,5 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
 }
+
 

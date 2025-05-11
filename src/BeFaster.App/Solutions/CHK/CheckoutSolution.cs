@@ -81,7 +81,7 @@ namespace BeFaster.App.Solutions.CHK
                             if (quantityToApplyDiscountOffers.GetValueOrDefault(p, 0) > 0)
                             {
                                 totalDiscountPrice += ProductPrices.Values[p];
-                                quantityToApplyDiscountOffers[p]--;
+                                quantityToApplyDiscountOffers[p]--;deploy
                                 totalProductsInGroup--;
                                 loopCount--;
                             }
@@ -164,3 +164,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
