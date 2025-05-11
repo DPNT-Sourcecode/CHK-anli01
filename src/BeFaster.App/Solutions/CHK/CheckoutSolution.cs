@@ -46,6 +46,9 @@ namespace BeFaster.App.Solutions.CHK
             // Check if the product has any free offers
             totalDiscountPrice += GetFreeOfferAmountForProduct(product, quantityToApplyDiscountOffers);
 
+            // Check if the product has any group discount offers
+            totalDiscountPrice += GetGroupDiscountAmountForProduct(product, quantityToApplyDiscountOffers);
+            
             // Check if the product has any discount offers
             totalDiscountPrice += GetDiscountedAmountForProduct(product, quantityToApplyDiscountOffers);
 
@@ -62,13 +65,28 @@ namespace BeFaster.App.Solutions.CHK
                 var products = groupDiscountOffer.Products;
 
                 var totalProductsInGroup = products.Sum(p => quantityToApplyDiscountOffers.GetValueOrDefault(p, 0));
-                if (totalProductsInGroup >= offerQuantity)
+                while (totalProductsInGroup >= offerQuantity)
                 {
                     totalDiscountPrice += (ProductPrices.Values[product] * offerQuantity - offerPrice);
-                    foreach (var p in products)
+                    var loopCount = offerQuantity;
+                    while (loopCount != 0)
                     {
-                        quantityToApplyDiscountOffers[p] -= 1;
+                        foreach (var p in products)
+                        {
+                            if(loopCount == 0)
+                            {
+                                break;
+                            }
+                            
+                            if (quantityToApplyDiscountOffers.GetValueOrDefault(p, 0) > 0)
+                            {
+                                quantityToApplyDiscountOffers[p]--;
+                                totalProductsInGroup--;
+                                loopCount--;
+                            }
+                        }
                     }
+
                 }
             }
 

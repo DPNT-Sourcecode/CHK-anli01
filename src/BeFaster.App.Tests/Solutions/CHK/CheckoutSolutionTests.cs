@@ -110,4 +110,15 @@ public class CheckoutSolutionTests
         // Assert
         result.Should().Be(expectedResult);
     }
+    
+    [TestCase("SSS", 45)]
+    [TestCase("STX", 45)]
+    public void Checkout_WhenGroupDiscountOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
+    {
+        // Act
+        var result = CheckoutSolution.Checkout(stockKeepingUnits);
+
+        // Assert
+        result.Should().Be(expectedResult);
+    }
 }
