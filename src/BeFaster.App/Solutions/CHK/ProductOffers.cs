@@ -22,4 +22,13 @@ public static class ProductOffers
         { 'U', new(3, 'U') },
     };
     
+    public static readonly Dictionary<char, GroupDiscountOffer> GroupDiscountOffers = new()
+    {
+        { 'S', new(3, 45, ['S', 'T', 'X', 'Y', 'Z']) },
+        { 'T', new(3, 45, ['S', 'T', 'X', 'Y', 'Z']) },
+        { 'X', new(3, 45, ['S', 'T', 'X', 'Y', 'Z']) },
+        { 'Y', new(3, 45, ['S', 'T', 'X', 'Y', 'Z']) },
+        { 'Z', new(3, 45, ['S', 'T', 'X', 'Y', 'Z']) },
+    };
+    
 }
