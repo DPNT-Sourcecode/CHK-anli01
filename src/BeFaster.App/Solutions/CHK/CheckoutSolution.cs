@@ -81,13 +81,13 @@ namespace BeFaster.App.Solutions.CHK
 
                 while (quantityToApplyDiscountOffers.ContainsKey(offerProduct) && quantityToApplyDiscountOffers[offerProduct] >= offerQuantity)
                 {
-                    totalDiscountPrice += ProductPrices.Values[product];
-                    
                     quantityToApplyDiscountOffers[offerProduct] -= offerQuantity;
                     
-                    if (quantityToApplyDiscountOffers.ContainsKey(product))
+                    if (quantityToApplyDiscountOffers.TryGetValue(product, out int value) && value > 0)
                     {
                         quantityToApplyDiscountOffers[product] -= 1;
+                        totalDiscountPrice += ProductPrices.Values[product];
+
                     }
                 }
             }
@@ -122,3 +122,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
