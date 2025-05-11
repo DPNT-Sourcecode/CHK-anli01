@@ -7,7 +7,7 @@ public static class ProductOffers
         { 'A', new List<DiscountOffer> { new(3, 130), new(5, 200) } },
         { 'B', new List<DiscountOffer> { new(2, 45) } },
         { 'H', new List<DiscountOffer> { new(5, 45), new(10, 80) } },
-        { 'K', new List<DiscountOffer> { new(2, 150) } },
+        { 'K', new List<DiscountOffer> { new(2, 120) } },
         { 'P', new List<DiscountOffer> { new(5, 200) } },
         { 'Q', new List<DiscountOffer> { new(3, 80) } },
         { 'V', new List<DiscountOffer> { new(2, 90), new(3, 130) } },
