@@ -99,7 +99,7 @@ public class CheckoutSolutionTests
     [TestCase("FFFEEEEBB", 180)]
     [TestCase("BBEE", 110)]
     [TestCase("FF", 20)]
-    [TestCase("ANNNNMAAA", 240)]
+    [TestCase("ANNNNMAAA", 340)]
     [TestCase("RRRQ", 150)]
     [TestCase("UUUUU", 160)]
     public void Checkout_WhenFreeOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
