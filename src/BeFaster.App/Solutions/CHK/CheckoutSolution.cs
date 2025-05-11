@@ -71,7 +71,7 @@ namespace BeFaster.App.Solutions.CHK
                     var loopCount = offerQuantity;
                     while (loopCount != 0)
                     {
-                        foreach (var p in products)
+                        foreach (var p in products.OrderByDescending(x => ProductPrices.Values[x]))
                         {
                             if(loopCount == 0)
                             {
@@ -164,4 +164,5 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 

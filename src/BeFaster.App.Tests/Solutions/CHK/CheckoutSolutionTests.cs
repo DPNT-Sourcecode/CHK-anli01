@@ -116,7 +116,8 @@ public class CheckoutSolutionTests
     [TestCase("STXX", 62)]
     [TestCase("STXXXX", 90)]
     [TestCase("STXTXYXYZ", 135)]
-    [TestCase("STXTXYXYK", 197)]
+    [TestCase("STXTYYXXK", 194)]
+    [TestCase("STXTYYXXKFFF", 214)]
     public void Checkout_WhenGroupDiscountOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
     {
         // Act
@@ -126,5 +127,6 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
 }
+
 
 
