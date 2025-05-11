@@ -35,25 +35,28 @@ namespace BeFaster.App.Solutions.CHK
                 var product = item.Key;
                 var quantityPurchased = item.Value;
                 
-                totalPrice -= GetDiscountPrice(product, quantityToApplyOffers, checkoutItems);
+                totalPrice -= GetDiscountPricePerProduct(product, quantityToApplyOffers, checkoutItems);
             }
 
             return totalPrice;
         }
 
-        private static int GetDiscountPrice(char product, Dictionary<char, int> quantityToApplyDiscountOffers, Dictionary<char, int> checkoutItems)
+        private static int GetDiscountPricePerProduct(char product, Dictionary<char, int> quantityToApplyDiscountOffers, Dictionary<char, int> checkoutItems)
         {
             
             var totalDiscountPrice = 0;
-            totalDiscountPrice = GetFreeOfferAmount(product, quantityToApplyDiscountOffers, checkoutItems, totalDiscountPrice);
+            // Check if the product has any free offers
+            totalDiscountPrice += GetFreeOfferAmountForProduct(product, quantityToApplyDiscountOffers);
 
-            totalDiscountPrice = GetDiscountedAmount(product, quantityToApplyDiscountOffers, totalDiscountPrice);
+            // Check if the product has any discount offers
+            totalDiscountPrice += GetDiscountedAmountForProduct(product, quantityToApplyDiscountOffers);
 
             return totalDiscountPrice;
         }
 
-        private static int GetDiscountedAmount(char product, Dictionary<char, int> quantityToApplyDiscountOffers, int totalDiscountPrice)
+        private static int GetDiscountedAmountForProduct(char product, Dictionary<char, int> quantityToApplyDiscountOffers)
         {
+            var totalDiscountPrice = 0;
             if (ProductOffers.DiscountOffers.TryGetValue(product, out var discountOffers))
             {
                 discountOffers = discountOffers.OrderByDescending(x => x.Quantity);
@@ -71,9 +74,9 @@ namespace BeFaster.App.Solutions.CHK
             return totalDiscountPrice;
         }
 
-        private static int GetFreeOfferAmount(char product, Dictionary<char, int> quantityToApplyDiscountOffers, Dictionary<char, int> checkoutItems,
-            int totalDiscountPrice)
+        private static int GetFreeOfferAmountForProduct(char product, Dictionary<char, int> quantityToApplyDiscountOffers)
         {
+            var totalDiscountPrice = 0;
             if (ProductOffers.FreeOffers.TryGetValue(product, out var freeOffer))
             {
                 var offerQuantity = freeOffer.Quantity;
@@ -122,4 +125,5 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
