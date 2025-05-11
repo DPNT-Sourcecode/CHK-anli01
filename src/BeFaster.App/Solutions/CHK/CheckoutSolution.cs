@@ -78,10 +78,10 @@ namespace BeFaster.App.Solutions.CHK
                                 break;
                             }
                             
-                            if (quantityToApplyDiscountOffers.GetValueOrDefault(p, 0) > 0)
+                            while (quantityToApplyDiscountOffers.GetValueOrDefault(p, 0) > 0 && loopCount != 0)
                             {
                                 totalDiscountPrice += ProductPrices.Values[p];
-                                quantityToApplyDiscountOffers[p]--;deploy
+                                quantityToApplyDiscountOffers[p]--;
                                 totalProductsInGroup--;
                                 loopCount--;
                             }
@@ -164,4 +164,5 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 

@@ -114,6 +114,7 @@ public class CheckoutSolutionTests
     [TestCase("SSS", 45)]
     [TestCase("STX", 45)]
     [TestCase("STXX", 62)]
+    [TestCase("ZZZS", 65)]
     [TestCase("STXXXX", 90)]
     [TestCase("STXTXYXYZ", 135)]
     [TestCase("STXTYYXXK", 194)]
@@ -128,5 +129,6 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
 }
+
 
 
