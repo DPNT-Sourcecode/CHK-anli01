@@ -67,7 +67,7 @@ namespace BeFaster.App.Solutions.CHK
                 var totalProductsInGroup = products.Sum(p => quantityToApplyDiscountOffers.GetValueOrDefault(p, 0));
                 while (totalProductsInGroup >= offerQuantity)
                 {
-                    totalDiscountPrice += (ProductPrices.Values[product] * offerQuantity - offerPrice);
+                    totalDiscountPrice -= offerPrice;
                     var loopCount = offerQuantity;
                     while (loopCount != 0)
                     {
@@ -80,6 +80,7 @@ namespace BeFaster.App.Solutions.CHK
                             
                             if (quantityToApplyDiscountOffers.GetValueOrDefault(p, 0) > 0)
                             {
+                                totalDiscountPrice += ProductPrices.Values[p];
                                 quantityToApplyDiscountOffers[p]--;
                                 totalProductsInGroup--;
                                 loopCount--;
@@ -163,3 +164,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+

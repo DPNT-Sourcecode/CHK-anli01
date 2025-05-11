@@ -113,6 +113,8 @@ public class CheckoutSolutionTests
     
     [TestCase("SSS", 45)]
     [TestCase("STX", 45)]
+    [TestCase("STXX", 62)]
+    [TestCase("STXXXX", 90)]
     public void Checkout_WhenGroupDiscountOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
     {
         // Act
