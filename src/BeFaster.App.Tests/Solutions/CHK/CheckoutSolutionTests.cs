@@ -88,8 +88,8 @@ public class CheckoutSolutionTests
             _productPrices['A'] * 9 - _productDiscountOffers['A'].First(x => x.Quantity == 5).Price +
             _productDiscountOffers['A'].First(x => x.Quantity == 3).Price),
         ("HHHHHHHHH", _productPrices['H'] * 9 - _productDiscountOffers['H'].First(x => x.Quantity == 5).Price),
-        ("VVVVV", _productPrices['V'] * 5 - _productDiscountOffers['V'].First(x => x.Quantity == 2).Price),
-        ("VVVVVVV", _productPrices['V'] * 7 - _productDiscountOffers['V'].First(x => x.Quantity == 3).Price),
+        ("VVVVV", _productPrices['V'] * 5 - _productDiscountOffers['V'].First(x => x.Quantity == 3).Price - _productDiscountOffers['V'].First(x => x.Quantity == 2).Price),
+        ("VVVVVVV", _productPrices['V'] * 7 - _productDiscountOffers['V'].First(x => x.Quantity == 3).Price - _productDiscountOffers['V'].First(x => x.Quantity == 3).Price),
     };
         
     [TestCaseSource(nameof(_multiDiscountTestCases))]
@@ -140,3 +140,4 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
 }
+
