@@ -52,6 +52,29 @@ namespace BeFaster.App.Solutions.CHK
             return totalDiscountPrice;
         }
 
+        private static int GetGroupDiscountAmountForProduct(char product, Dictionary<char, int> quantityToApplyDiscountOffers)
+        {
+            var totalDiscountPrice = 0;
+            if (ProductOffers.GroupDiscountOffers.TryGetValue(product, out var groupDiscountOffer))
+            {
+                var offerQuantity = groupDiscountOffer.Quantity;
+                var offerPrice = groupDiscountOffer.Price;
+                var products = groupDiscountOffer.Products;
+
+                var totalProductsInGroup = products.Sum(p => quantityToApplyDiscountOffers.GetValueOrDefault(p, 0));
+                if (totalProductsInGroup >= offerQuantity)
+                {
+                    totalDiscountPrice += (ProductPrices.Values[product] * offerQuantity - offerPrice);
+                    foreach (var p in products)
+                    {
+                        quantityToApplyDiscountOffers[p] -= 1;
+                    }
+                }
+            }
+
+            return totalDiscountPrice;
+        }
+        
         private static int GetDiscountedAmountForProduct(char product, Dictionary<char, int> quantityToApplyDiscountOffers)
         {
             var totalDiscountPrice = 0;
