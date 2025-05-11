@@ -16,7 +16,10 @@ public static class ProductOffers
     public static readonly Dictionary<char, FreeOffer> FreeOffers = new()
     {
         { 'B', new(2, 'E') },
-        { 'F', new(2, 'F') }
+        { 'F', new(2, 'F') },
+        { 'M', new(3, 'N') },
+        { 'Q', new(3, 'R') },
+        { 'U', new(3, 'U') },
     };
     
 }

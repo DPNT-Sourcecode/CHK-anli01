@@ -36,6 +36,26 @@ public class CheckoutSolutionTests
             ( "D", _productPrices['D'] ),
             ( "E", _productPrices['E'] ),
             ( "F", _productPrices['F'] ),
+            ("G", _productPrices['G']),
+            ( "H", _productPrices['H'] ),
+            ( "I", _productPrices['I'] ),
+            ( "J", _productPrices['J'] ),
+            ( "K", _productPrices['K'] ),
+            ( "L", _productPrices['L'] ),
+            ("M", _productPrices['M']),
+            ( "N", _productPrices['N'] ),
+            ( "O", _productPrices['O'] ),
+            ( "P", _productPrices['P'] ),
+            ( "Q", _productPrices['Q'] ),
+            ( "R", _productPrices['R'] ),
+            ( "S", _productPrices['S'] ),
+            ( "T", _productPrices['T'] ),
+            ( "U", _productPrices['U'] ),
+            ( "V", _productPrices['V'] ),
+            ( "W", _productPrices['W'] ),
+            ( "X", _productPrices['X'] ),
+            ( "Y", _productPrices['Y'] ),
+            ( "Z", _productPrices['Z'] ),
             ( "ABCD", _productPrices['A']+_productPrices['B']+_productPrices['C']+_productPrices['D'] ),
             ( "AA", _productPrices['A']*2 ),
             ( "BB", _productDiscountOffers['B'].First().Price ),
@@ -61,6 +81,9 @@ public class CheckoutSolutionTests
     [TestCase("AAAAAAAAAAAAAAA", 600)]
     [TestCase("AAAAAAAA", 330)]
     [TestCase("AAAAAAAAA", 380)]
+    [TestCase("HHHHHHHHH", 85)]
+    [TestCase("VVVVV", 220)]
+    [TestCase("VVVVVVV", 310)]
     public void Checkout_WhenMultipleDiscountOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
     {
         // Act
@@ -76,6 +99,9 @@ public class CheckoutSolutionTests
     [TestCase("FFFEEEEBB", 180)]
     [TestCase("BBEE", 110)]
     [TestCase("FF", 20)]
+    [TestCase("ANNNNMAAA", 240)]
+    [TestCase("RRRQ", 150)]
+    [TestCase("UUUUU", 160)]
     public void Checkout_WhenFreeOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
     {
         // Act
