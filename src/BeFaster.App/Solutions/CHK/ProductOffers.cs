@@ -5,7 +5,12 @@ public static class ProductOffers
     public static readonly Dictionary<char, IEnumerable<DiscountOffer>> DiscountOffers = new()
     {
         { 'A', new List<DiscountOffer> { new(3, 130), new(5, 200) } },
-        { 'B', new List<DiscountOffer> { new(2, 45) } }
+        { 'B', new List<DiscountOffer> { new(2, 45) } },
+        { 'H', new List<DiscountOffer> { new(5, 45), new(10, 80) } },
+        { 'K', new List<DiscountOffer> { new(2, 150) } },
+        { 'P', new List<DiscountOffer> { new(5, 200) } },
+        { 'Q', new List<DiscountOffer> { new(3, 80) } },
+        { 'V', new List<DiscountOffer> { new(2, 90), new(3, 130) } },
     };
     
     public static readonly Dictionary<char, FreeOffer> FreeOffers = new()
