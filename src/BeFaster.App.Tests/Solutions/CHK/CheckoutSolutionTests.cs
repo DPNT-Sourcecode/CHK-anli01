@@ -26,7 +26,7 @@ public class CheckoutSolutionTests
     }
     
     
-    private static IEnumerable<(string, int)> _checkoutTestCases =
+    private static IEnumerable<(string, int)> _validInputTestCases =
         new List<(string, int)>
         { 
             ("", 0),
@@ -65,7 +65,7 @@ public class CheckoutSolutionTests
             ( "AAA", _productDiscountOffers['A'].First().Price )
         };
 
-    [TestCaseSource(nameof(_checkoutTestCases))]
+    [TestCaseSource(nameof(_validInputTestCases))]
     public void Checkout_WhenInputValid_ReturnsExpected((string, int) input)
     {
         // Arrange
@@ -78,14 +78,23 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
     
+    private static IEnumerable<(string, int)> _multiDiscountTestCases = new List<(string, int)>
+        {
+            
+        } 
+    
     [TestCase("AAAAAAAAAAAAAAA", 600)]
     [TestCase("AAAAAAAA", 330)]
     [TestCase("AAAAAAAAA", 380)]
     [TestCase("HHHHHHHHH", 85)]
     [TestCase("VVVVV", 220)]
     [TestCase("VVVVVVV", 310)]
+        [TestCaseSource(nameof(_validInputTestCases))]
     public void Checkout_WhenMultipleDiscountOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
     {
+        // Arrange
+        var (stockKeepingUnits, expectedResult) = input;
+        
         // Act
         var result = CheckoutSolution.Checkout(stockKeepingUnits);
 
@@ -118,6 +127,7 @@ public class CheckoutSolutionTests
     [TestCase("STXTXYXYZ", 135)]
     [TestCase("STXTYYXXK", 194)]
     [TestCase("STXTYYXXKFFF", 214)]
+    [TestCase("STXTYYXXKFFFAAA", 344)]
     public void Checkout_WhenGroupDiscountOffers_ReturnsExpected(string stockKeepingUnits, int expectedResult)
     {
         // Act
@@ -127,6 +137,3 @@ public class CheckoutSolutionTests
         result.Should().Be(expectedResult);
     }
 }
-
-
-
