@@ -33,15 +33,13 @@ namespace BeFaster.App.Solutions.CHK
             foreach (var item in checkoutItems)
             {
                 var product = item.Key;
-                var quantityPurchased = item.Value;
-                
-                totalPrice -= GetDiscountPricePerProduct(product, quantityToApplyOffers, checkoutItems);
+                totalPrice -= GetTotalDiscountPricePerProduct(product, quantityToApplyOffers, checkoutItems);
             }
 
             return totalPrice;
         }
 
-        private static int GetDiscountPricePerProduct(char product, Dictionary<char, int> quantityToApplyDiscountOffers, Dictionary<char, int> checkoutItems)
+        private static int GetTotalDiscountPricePerProduct(char product, Dictionary<char, int> quantityToApplyDiscountOffers, Dictionary<char, int> checkoutItems)
         {
             
             var totalDiscountPrice = 0;
@@ -98,7 +96,6 @@ namespace BeFaster.App.Solutions.CHK
             return totalDiscountPrice;
         }
         
-
         private static int GetDiscountOfferPrice(char product, int quantityPurchased, DiscountOffer discountOffer, out int offerApplied)
         {
             var offerQuantity = discountOffer.Quantity;
@@ -125,5 +122,3 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
-
-
